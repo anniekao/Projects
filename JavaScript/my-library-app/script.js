@@ -38,7 +38,10 @@ Book.prototype.info = function(){
 details for the new book: author, title, number of pages, whether it’s been read 
 and anything else you might want. */
 const addBookToLibrary = function(event){
+    // prevents the submit button from firing on load
     event.preventDefault();
+
+    // collects data from the form
     let data = [];
     let form = document.getElementById('new-book');
     let dataCollect = function(){
@@ -46,8 +49,32 @@ const addBookToLibrary = function(event){
             data.push(field.value);
     };
     dataCollect();
-    data = data.splice(0,4);
-    console.table(data);
+
+    // takes the collected data and adds a new book instance to the library
+    data = data.splice(0, data.length-2);
+    var newEntry = new Book (data[0], data[1], data[2], data[3]);
+    myLibrary.push(newEntry);   
+    addBookToTable(); 
+};
+
+const addBookToTable = function(){
+    let newEntry = myLibrary[myLibrary.length-1];
+    let table = document.querySelector('table');
+    let row = table.insertRow();
+    let keys = Object.keys(newEntry);
+    for (let key of keys){
+        let cell = row.insertCell();
+        let text = document.createTextNode(newEntry[key]);
+        cell.appendChild(text);
+    }
+    let cell = row.insertCell();
+    var btn = document.createElement('input');
+    btn.type = 'button';
+    btn.class = 'btn';
+    btn.value = 'delete';
+    btn.innerHTML = 'delete book';
+    cell.appendChild(btn);
+    
 };
 
 let form = document.getElementById('new-book');
@@ -58,37 +85,44 @@ function showForm(){
     form.style.display = 'block';
 }
 
+// creates and renders a table containing the books in the library
 function render(){
-    function generateTableHead(table){
-        let thead = table.createTHead();
-        let row = thead.insertRow();
-
-        for (let category of categories){
-            let th = document.createElement('th');
-            let text = document.createTextNode(category);
-            th.appendChild(text);
-            row.append(th);
-        }
-
-        for (let book of myLibrary) {
-            let row = table.insertRow();
-            let keys = Object.keys(book);
-            for (let key of keys){
-                let cell = row.insertCell();
-                let text = document.createTextNode(book[key]);
-                cell.appendChild(text);
-            }  
-
-            let cell = row.insertCell();
-            var btn = document.createElement('input');
-            btn.type = 'button';
-            btn.class = 'btn';
-            btn.value = 'delete';
-            btn.innerHTML = 'delete book';
-            cell.appendChild(btn);  
-        } 
-    }
     let table = document.querySelector('table');
-    generateTableHead(table);
+    generateTable(table);
 }
+
+// dynamically creates table headings and table rows/cells
+const generateTable = function (table) {
+    let thead = table.createTHead();
+    let row = thead.insertRow();
+
+    for (let category of categories) {
+        let th = document.createElement('th');
+        let text = document.createTextNode(category);
+        th.appendChild(text);
+        row.append(th);
+    }
+
+    for (let book of myLibrary) {
+        let row = table.insertRow();
+        let keys = Object.keys(book);
+        for (let key of keys) {
+            let cell = row.insertCell();
+            let text = document.createTextNode(book[key]);
+            cell.appendChild(text);
+
+        }
+        // createDeleteButton();
+        let cell = row.insertCell();
+        var btn = document.createElement('input');
+        btn.type = 'button';
+        btn.class = 'btn';
+        btn.value = 'delete';
+        btn.innerHTML = 'delete book';
+        cell.appendChild(btn);
+
+    }
+
+}
+
 render();
