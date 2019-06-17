@@ -8,30 +8,32 @@
     <title>My Library App</title>
 </head>
 <body>
-    <table>
-    </table><br />
+    <div class = "container">
+        <table>
+        </table><br />
 
-    <button type="button" onclick="showForm()">Add new book</button>
-    <br /><br />
+        <button type="button" onclick="showForm()">Add new book</button>
+        <br /><br />
 
-    <form id="new-book-form">
-        Book Title: <br />
-        <input type="text" name="title" id="title">
-        <br />
-        Author: <br />
-        <input type="text" name="author" id="author">
-        <br />
-        Number of Pages: <br />
-        <input type="text" name="pages" id="pages">
-        <br />
-        Reading status: <br />
-        <input type="radio" name="status" id="status-read" value="true">Finished<br />
-        <input type ="radio" name ="status" id="status-unread" value="false">Unread/Unfinished<br />
-        <br />
-        <input type="submit" id="submit" value="Submit">
-        <input type="button" id="clear-btn" value="Clear">
-    </form>
-
+        <form id="new-book-form">
+            Book Title: <br />
+            <input type="text" name="title" id="title">
+            <br />
+            Author: <br />
+            <input type="text" name="author" id="author">
+            <br />
+            Number of Pages: <br />
+            <input type="text" name="pages" id="pages">
+            <br />
+            Reading status: <br />
+            <input type="radio" name="status" id="status-read" value="true">Finished<br />
+            <input type="radio" name="status" id="status-unread" value="false">Unread/Unfinished<br />
+            <br />
+            <input type="submit" id="submit" value="Submit">
+            <input type="button" id="clear-btn" value="Clear">
+        </form>
+    </div>
+    
     <script src="script.js"></script>
     
 </body>

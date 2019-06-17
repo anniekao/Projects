@@ -9,7 +9,8 @@ note: it is almost always best to return things rather than putting console.log(
 console.log(theHobbit.info()); */
 
 let myLibrary = [];
-let categories = ["Title", "Author", "Pages", "Status", "Delete?"];
+let categories = ["No.", "Title", "Author", "Pages", "Status", "Delete?"];
+let idNo = 1;
 
 let mockingbird = new Book("To Kill a Mockingbird", "Harper Lee", 350, false);
 let blood = new Book("In Cold Blood", "Truman Capote", 400, true);
@@ -17,16 +18,19 @@ let hunter = new Book("The Heart Is a Lonely Hunter", "Carson McCullers", 250, t
 myLibrary.push(mockingbird, blood, hunter);
 
 function Book (title, author, pages, read) {
+    this.id = idNo;
+    idNo++;
     this.title = title;
     this.author = author;
     this.pages = pages;
-    this.read = read;
+    read === true ? this.read = "Read": this.read = "Unread";
+    
 }
 
 Book.prototype.info = function(){
     var readStatus;
-        if (this.read === true) {
-            readStatus = "ready read";
+        if (this.read === "Read") {
+            readStatus = "already read";
         } else {
             readStatus = "not read yet";
         }
