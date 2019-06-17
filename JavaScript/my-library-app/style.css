@@ -1,0 +1,12 @@
+table, th, td {
+    width: 50%;
+    border: 1px solid black;
+}
+
+th {
+    height: 50px;
+}
+
+form {
+    display: none;
+}
