@@ -9,7 +9,7 @@ note: it is almost always best to return things rather than putting console.log(
 console.log(theHobbit.info()); */
 
 let myLibrary = [];
-let categories = ["Title", "Author", "Pages", "Read?"];
+let categories = ["Title", "Author", "Pages", "Status", "Delete?"];
 
 let mockingbird = new Book("To Kill a Mockingbird", "Harper Lee", 350, false);
 let blood = new Book("In Cold Blood", "Truman Capote", 400, true);
@@ -65,8 +65,16 @@ function render(){
                 let cell = row.insertCell();
                 let text = document.createTextNode(book[key]);
                 cell.appendChild(text);
-            }     
-        }
+            }  
+
+            let cell = row.insertCell();
+            var btn = document.createElement('input');
+            btn.type = 'button';
+            btn.class = 'btn';
+            btn.value = 'delete';
+            btn.innerHTML = 'delete book';
+            cell.appendChild(btn);  
+        } 
     }
     
 
