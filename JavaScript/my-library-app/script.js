@@ -8,7 +8,7 @@ note: it is almost always best to return things rather than putting console.log(
 
 console.log(theHobbit.info()); */
 
-let myLibrary = ["To Kill a Mockingbird", "In Cold Blood", "The Heart Is a Lonely Hunter"];
+let myLibrary = [];
 let categories = ["Title", "Author", "Pages", "Read?"];
 
 let mockingbird = new Book("To Kill a Mockingbird", "Harper Lee", 350, false);
@@ -60,11 +60,12 @@ function render(){
 
         for (let book of myLibrary) {
             let row = table.insertRow();
-            for (let info of book){
+            let keys = Object.keys(book);
+            for (let key of keys){
                 let cell = row.insertCell();
-                let text = document.createTextNode(info);
+                let text = document.createTextNode(book[key]);
                 cell.appendChild(text);
-            }
+            }     
         }
     }
     
