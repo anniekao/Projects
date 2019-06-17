@@ -28,30 +28,35 @@ let blood = new Book("In Cold Blood", "Truman Capote", 400, true);
 let hunter = new Book("The Heart Is a Lonely Hunter", "Carson McCullers", 250, true);
 myLibrary.push(mockingbird, blood, hunter);
 
+const dataCollect = function(form){
+    let data = [];
+    for (var field of form.elements){
+        data.push(field.value);
+    }
+    return data;
+};
+
+
 const addBookToLibrary = function(event){
     // prevents the submit button from firing on load
     event.preventDefault();
 
     // collects data from the form
-    let data = [];
     let form = document.getElementById('new-book-form');
-    let dataCollect = function(){
-        for (var field of form.elements)
-            data.push(field.value);
-    };
-    dataCollect();
+    let data = dataCollect(form);
 
     // takes the collected data and adds a new book instance to the library
     data = data.splice(0, data.length-2);
     var newEntry = new Book (data[0], data[1], data[2], data[3]);
     myLibrary.push(newEntry);   
+    updateBookId();
     updateTable(); 
     clearForm();
 };
 
 const deleteBookFromLibrary = function(event, id){
     event.preventDefault();
-    myLibrary.splice(id, 1);
+    myLibrary.splice(id-1, 1);
     updateBookId();
     updateTable();
     toggleForm();
@@ -82,7 +87,7 @@ form.addEventListener('submit', addBookToLibrary);
 let clearBtn = document.getElementById('clear-btn');
 clearBtn.addEventListener('click', clearForm);
 
-function toggleForm(){
+const toggleForm = function(){
     var form = document.getElementById('new-book-form');
     if (form.style.display === 'block'){
         form.style.display = 'none';
@@ -92,7 +97,7 @@ function toggleForm(){
 }
 
 // creates and renders a table containing the books in the library
-function render(){
+const render = function(){
     let table = document.querySelector('table');
     generateTable(table);
 }
