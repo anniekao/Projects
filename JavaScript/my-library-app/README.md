@@ -12,5 +12,5 @@ this project:
 - [x] Connect the HTML file to a render() function that loops through the array and displays each book on the page, e.g. by means of a table or by displaying it as its own 'card
 - [x] Add a 'new book' button that brings up a form that allows the the user to input details for a new book, e.g. 'Title', 'Author', 'Pages', 'Read/Unread' etc.
 - [x] Add a button on each book's display to remove that book from the library
-- [] Add a button to change a book's read status
-- [] Optional: Save the data using either localStorage or Firebase
+-[] Add a button to change a book's read status
+-[] Optional: Save the data using either localStorage or Firebase
