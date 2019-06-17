@@ -1,16 +1,6 @@
-/*Write a constructor for making “book” objects. We will revisit this in the project at the end of this lesson. Your book objects should have the book’s title, author, the number of pages, and whether or not you have read the book
-
-Put a function into the constructor that can report the book info like so
-
-book.info() // "The Hobbit by J.R.R. Tolkien, 295 pages, not read yet"
-
-note: it is almost always best to return things rather than putting console.log() directly into the function. In this case, return the info string and log it after the function has been called:
-
-console.log(theHobbit.info()); */
-
 let myLibrary = [];
 let categories = ["No.", "Title", "Author", "Pages", "Status", "Delete?"];
-let idNo = 1;
+let idNo = myLibrary.length;
 
 let mockingbird = new Book("To Kill a Mockingbird", "Harper Lee", 350, false);
 let blood = new Book("In Cold Blood", "Truman Capote", 400, true);
@@ -58,7 +48,7 @@ const addBookToLibrary = function(event){
     data = data.splice(0, data.length-2);
     var newEntry = new Book (data[0], data[1], data[2], data[3]);
     myLibrary.push(newEntry);   
-    addBookToTable(); 
+    updateTable(); 
     clearForm();
 };
 
@@ -66,26 +56,30 @@ const clearForm = function () {
     document.getElementById('new-book-form').reset();
 };
 
-const addBookToTable = function(){
-    let newEntry = myLibrary[myLibrary.length-1];
+const updateTable = function(){
+    // let newEntry = myLibrary[myLibrary.length-1];
+    // let table = document.querySelector('table');
+    // let row = table.insertRow();
+    // let keys = Object.keys(newEntry);
+    // for (let key of keys){
+    //     let cell = row.insertCell();
+    //     let text = document.createTextNode(newEntry[key]);
+    //     cell.appendChild(text);
+    // }
+    // // repetitive -- createDeleteButton() needed
+    // let cell = row.insertCell();
+    // var btn = document.createElement('input');
+    // btn.type = 'button';
+    // btn.class = 'btn';
+    // btn.value = 'delete';
+    // btn.innerHTML = 'delete book';
+    // cell.appendChild(btn);
+
     let table = document.querySelector('table');
-    let row = table.insertRow();
-    let keys = Object.keys(newEntry);
-    for (let key of keys){
-        let cell = row.insertCell();
-        let text = document.createTextNode(newEntry[key]);
-        cell.appendChild(text);
-    }
-    // repetitive -- createDeleteButton() needed
-    let cell = row.insertCell();
-    var btn = document.createElement('input');
-    btn.type = 'button';
-    btn.class = 'btn';
-    btn.value = 'delete';
-    btn.innerHTML = 'delete book';
-    cell.appendChild(btn);
+    table.innerHTML = "";
+    generateTable(table);
     clearForm();
-    hideForm();
+    toggleForm();
 };
 
 let form = document.getElementById('new-book-form');
@@ -93,14 +87,13 @@ form.addEventListener('submit', addBookToLibrary);
 let clearBtn = document.getElementById('clear-btn');
 clearBtn.addEventListener('click', clearForm);
 
-function showForm(){
+function toggleForm(){
     var form = document.getElementById('new-book-form');
-    form.style.display = 'block';
-}
-
-function hideForm(){
-    var form = document.getElementById('new-book-form');
-    form.style.display = 'none';
+    if (form.style.display === 'block'){
+        form.style.display = 'none';
+    } else {
+        form.style.display = 'block';
+    }
 }
 
 // creates and renders a table containing the books in the library
