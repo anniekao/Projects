@@ -52,29 +52,27 @@ const addBookToLibrary = function(event){
     clearForm();
 };
 
+const deleteBookFromLibrary = function(event, id){
+    event.preventDefault();
+    myLibrary.splice(id, 1);
+    updateBookId();
+    updateTable();
+    toggleForm();
+};
+
+const updateBookId = function(){
+    let id = 0;
+    for (var book of myLibrary){
+        book.id = id;
+        id++;
+    }
+}
+
 const clearForm = function () {
     document.getElementById('new-book-form').reset();
 };
 
 const updateTable = function(){
-    // let newEntry = myLibrary[myLibrary.length-1];
-    // let table = document.querySelector('table');
-    // let row = table.insertRow();
-    // let keys = Object.keys(newEntry);
-    // for (let key of keys){
-    //     let cell = row.insertCell();
-    //     let text = document.createTextNode(newEntry[key]);
-    //     cell.appendChild(text);
-    // }
-    // // repetitive -- createDeleteButton() needed
-    // let cell = row.insertCell();
-    // var btn = document.createElement('input');
-    // btn.type = 'button';
-    // btn.class = 'btn';
-    // btn.value = 'delete';
-    // btn.innerHTML = 'delete book';
-    // cell.appendChild(btn);
-
     let table = document.querySelector('table');
     table.innerHTML = "";
     generateTable(table);
@@ -116,24 +114,22 @@ const generateTable = function (table) {
 
     for (let book of myLibrary) {
         let row = table.insertRow();
+        row.id = book.id;
         let keys = Object.keys(book);
         for (let key of keys) {
             let cell = row.insertCell();
             let text = document.createTextNode(book[key]);
             cell.appendChild(text);
-
         }
-        // repetitive -- createDeleteButton() needed
         let cell = row.insertCell();
         var btn = document.createElement('input');
         btn.type = 'button';
         btn.class = 'btn';
+        btn.addEventListener('click', e => deleteBookFromLibrary(e, row.id));
         btn.value = 'delete';
         btn.innerHTML = 'delete book';
         cell.appendChild(btn);
-
     }
-
 };
 
 render();
