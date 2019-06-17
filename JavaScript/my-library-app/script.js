@@ -125,10 +125,22 @@ const generateTable = function (table) {
         var btn = document.createElement('input');
         btn.type = 'button';
         btn.class = 'btn';
-        btn.addEventListener('click', e => deleteBookFromLibrary(e, row.id));
+        btn.addEventListener('click', e => {
+            if (confirmDelete()){
+                deleteBookFromLibrary(e, row.id);
+            }
+        });
         btn.value = 'delete';
         btn.innerHTML = 'delete book';
         cell.appendChild(btn);
+    }
+};
+
+const confirmDelete = function(){
+    if (confirm('Delete book?')){
+        return true;
+    } else {
+        return false;
     }
 };
 
