@@ -37,9 +37,21 @@ Book.prototype.info = function(){
 /* Add a “NEW BOOK” button that brings up a form allowing users to input the 
 details for the new book: author, title, number of pages, whether it’s been read 
 and anything else you might want. */
-function addBookToLibrary() {
-    
-}
+const addBookToLibrary = function(event){
+    event.preventDefault();
+    let data = [];
+    let form = document.getElementById('new-book');
+    let dataCollect = function(){
+        for (var field of form.elements)
+            data.push(field.value);
+    };
+    dataCollect();
+    data = data.splice(0,4);
+    console.table(data);
+};
+
+let form = document.getElementById('new-book');
+form.addEventListener('submit', addBookToLibrary);
 
 function showForm(){
     var form = document.getElementById('new-book');
@@ -76,10 +88,7 @@ function render(){
             cell.appendChild(btn);  
         } 
     }
-    
-
     let table = document.querySelector('table');
     generateTableHead(table);
-
 }
 render();
