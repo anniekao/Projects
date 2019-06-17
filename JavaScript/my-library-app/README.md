@@ -7,10 +7,10 @@ this project:
 * The constructor should also contain a function that reports book info, e.g. book.info() return "The Hobbit by J.R.R. Tolkien, 295 pages, not read yet"
 
 ### 2) Expanding it into an app
-* Set up the HTML/CSS skeleton
-* Add a function to the script that takes a user's input and stores the new book objects into an array
-* Connect the HTML file to a render() function that loops through the array and displays each book on the page, e.g. by means of a table or by displaying it as its own 'card
-* Add a 'new book' button that brings up a form that allows the the user to input details for a new book, e.g. 'Title', 'Author', 'Pages', 'Read/Unread' etc.
-* Add a button on each book's display to remove that book from the library
+- [x] Set up the HTML/CSS skeleton
+- [x] Add a function to the script that takes a user's input and stores the new book objects into an array
+- [x] Connect the HTML file to a render() function that loops through the array and displays each book on the page, e.g. by means of a table or by displaying it as its own 'card
+- [x] Add a 'new book' button that brings up a form that allows the the user to input details for a new book, e.g. 'Title', 'Author', 'Pages', 'Read/Unread' etc.
+- [x] Add a button on each book's display to remove that book from the library
 * Add a button to change a book's read status
 * Optional: Save the data using either localStorage or Firebase

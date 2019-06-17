@@ -1,20 +1,14 @@
 let myLibrary = [];
 let categories = ["No.", "Title", "Author", "Pages", "Status", "Delete?"];
-let idNo = myLibrary.length;
+let idNo = 1;
 
-let mockingbird = new Book("To Kill a Mockingbird", "Harper Lee", 350, false);
-let blood = new Book("In Cold Blood", "Truman Capote", 400, true);
-let hunter = new Book("The Heart Is a Lonely Hunter", "Carson McCullers", 250, true);
-myLibrary.push(mockingbird, blood, hunter);
-
-function Book (title, author, pages, read) {
+const Book = function (title, author, pages, read) {
     this.id = idNo;
     idNo++;
     this.title = title;
     this.author = author;
     this.pages = pages;
     read === true ? this.read = "Read": this.read = "Unread";
-    
 }
 
 Book.prototype.info = function(){
@@ -28,9 +22,12 @@ Book.prototype.info = function(){
    
 };
 
-/* Add a “NEW BOOK” button that brings up a form allowing users to input the 
-details for the new book: author, title, number of pages, whether it’s been read 
-and anything else you might want. */
+// Dummy books for testing
+let mockingbird = new Book("To Kill a Mockingbird", "Harper Lee", 350, false);
+let blood = new Book("In Cold Blood", "Truman Capote", 400, true);
+let hunter = new Book("The Heart Is a Lonely Hunter", "Carson McCullers", 250, true);
+myLibrary.push(mockingbird, blood, hunter);
+
 const addBookToLibrary = function(event){
     // prevents the submit button from firing on load
     event.preventDefault();
@@ -61,12 +58,12 @@ const deleteBookFromLibrary = function(event, id){
 };
 
 const updateBookId = function(){
-    let id = 0;
+    let id = 1;
     for (var book of myLibrary){
         book.id = id;
         id++;
     }
-}
+};
 
 const clearForm = function () {
     document.getElementById('new-book-form').reset();
