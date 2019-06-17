@@ -14,7 +14,7 @@
     <button type="button" onclick="showForm()">Add new book</button>
     <br /><br />
 
-    <form id="new-book">
+    <form id="new-book-form">
         Book Title: <br />
         <input type="text" name="title" id="title">
         <br />
@@ -28,7 +28,8 @@
         <input type="radio" name="status" id="status-read" value="true">Finished<br />
         <input type ="radio" name ="status" id="status-unread" value="false">Unread/Unfinished<br />
         <br />
-        <input type="submit" value="Submit">
+        <input type="submit" id="submit" value="Submit">
+        <input type="button" id="clear-btn" value="Clear">
     </form>
 
     <script src="script.js"></script>

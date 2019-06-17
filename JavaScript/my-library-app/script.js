@@ -43,7 +43,7 @@ const addBookToLibrary = function(event){
 
     // collects data from the form
     let data = [];
-    let form = document.getElementById('new-book');
+    let form = document.getElementById('new-book-form');
     let dataCollect = function(){
         for (var field of form.elements)
             data.push(field.value);
@@ -55,6 +55,11 @@ const addBookToLibrary = function(event){
     var newEntry = new Book (data[0], data[1], data[2], data[3]);
     myLibrary.push(newEntry);   
     addBookToTable(); 
+    clearForm();
+};
+
+const clearForm = function () {
+    document.getElementById('new-book-form').reset();
 };
 
 const addBookToTable = function(){
@@ -67,6 +72,7 @@ const addBookToTable = function(){
         let text = document.createTextNode(newEntry[key]);
         cell.appendChild(text);
     }
+    // repetitive -- createDeleteButton() needed
     let cell = row.insertCell();
     var btn = document.createElement('input');
     btn.type = 'button';
@@ -74,15 +80,23 @@ const addBookToTable = function(){
     btn.value = 'delete';
     btn.innerHTML = 'delete book';
     cell.appendChild(btn);
-    
+    clearForm();
+    hideForm();
 };
 
-let form = document.getElementById('new-book');
+let form = document.getElementById('new-book-form');
 form.addEventListener('submit', addBookToLibrary);
+let clearBtn = document.getElementById('clear-btn');
+clearBtn.addEventListener('click', clearForm);
 
 function showForm(){
-    var form = document.getElementById('new-book');
+    var form = document.getElementById('new-book-form');
     form.style.display = 'block';
+}
+
+function hideForm(){
+    var form = document.getElementById('new-book-form');
+    form.style.display = 'none';
 }
 
 // creates and renders a table containing the books in the library
@@ -112,7 +126,7 @@ const generateTable = function (table) {
             cell.appendChild(text);
 
         }
-        // createDeleteButton();
+        // repetitive -- createDeleteButton() needed
         let cell = row.insertCell();
         var btn = document.createElement('input');
         btn.type = 'button';
@@ -123,6 +137,6 @@ const generateTable = function (table) {
 
     }
 
-}
+};
 
 render();
