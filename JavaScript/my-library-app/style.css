@@ -11,6 +11,10 @@ form {
     display: none;
 }
 
+h1 {
+    text-align: center;
+}
+
 .container {
     margin: 0 auto;
     width: 600px;

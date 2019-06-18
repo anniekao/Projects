@@ -51,6 +51,7 @@ const addBookToLibrary = function(event){
     updateBookId();
     updateTable(); 
     clearForm();
+    toggleForm();
 };
 
 const deleteBookFromLibrary = function(event, id){
@@ -58,7 +59,6 @@ const deleteBookFromLibrary = function(event, id){
     myLibrary.splice(id-1, 1);
     updateBookId();
     updateTable();
-    toggleForm();
 };
 
 const updateBookId = function(){
@@ -78,7 +78,6 @@ const updateTable = function(){
     table.innerHTML = "";
     generateTable(table);
     clearForm();
-    toggleForm();
 };
 
 let form = document.getElementById('new-book-form');
@@ -87,18 +86,27 @@ let clearBtn = document.getElementById('clear-btn');
 clearBtn.addEventListener('click', clearForm);
 
 const toggleForm = function(){
+    event.preventDefault();
     var form = document.getElementById('new-book-form');
     if (form.style.display === 'block'){
         form.style.display = 'none';
     } else {
         form.style.display = 'block';
     }
-}
+};
 
-// creates and renders a table containing the books in the library
-const render = function(){
-    let table = document.querySelector('table');
-    generateTable(table);
+let addBtn = document.getElementById('add-book-btn');
+addBtn.addEventListener('click', toggleForm);
+
+const toggleReadStatus = function(event, id){
+    event.preventDefault();
+    if (myLibrary[id-1].read === 'Read'){
+        myLibrary[id-1].read = 'Unread';
+        updateTable();
+    } else {
+        myLibrary[id-1].read = 'Read';
+        updateTable();
+    }
 }
 
 // dynamically creates table headings and table rows/cells, filling it with the content
@@ -124,9 +132,7 @@ const generateTable = function (table) {
                 btn.type = 'button';
                 btn.className = 'read-btn';
                 btn.addEventListener('click', e => {
-                    if (confirmReadEdit()) {
-                        editStatus(e, book.id);
-                    }
+                    toggleReadStatus(e, book.id);
                 });
                 btn.value = book[key];
                 cell.appendChild(btn);
@@ -156,5 +162,11 @@ const confirmDelete = function(){
         return false;
     }
 };
+
+// creates and renders a table containing the books in the library
+const render = function () {
+    let table = document.querySelector('table');
+    generateTable(table);
+}
 
 render();
