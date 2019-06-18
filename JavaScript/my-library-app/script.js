@@ -118,14 +118,14 @@ const generateTable = function (table) {
         row.id = book.id;
         let keys = Object.keys(book);
         for (let key of keys) {
-            let cell = row.insertCell();
+            let cell = row.insertCell();      
             if (key === 'read'){
-                var btn = document.createElement('input');
+                let btn = document.createElement('input');
                 btn.type = 'button';
-                btn.class = 'btn';
+                btn.className = 'read-btn';
                 btn.addEventListener('click', e => {
                     if (confirmReadEdit()) {
-                        editRead(e, row.id);
+                        editStatus(e, book.id);
                     }
                 });
                 btn.value = book[key];
@@ -135,16 +135,16 @@ const generateTable = function (table) {
                 cell.appendChild(text);
             }
         }
+        let btn = document.createElement('input');
         let cell = row.insertCell();
-        var btn = document.createElement('input');
         btn.type = 'button';
-        btn.class = 'btn';
+        btn.className = 'delete-btn';
         btn.addEventListener('click', e => {
             if (confirmDelete()){
-                deleteBookFromLibrary(e, row.id);
+                deleteBookFromLibrary(e, book.id);
             }
         });
-        btn.value = 'delete';
+        btn.value = 'Delete';
         cell.appendChild(btn);
     }
 };
