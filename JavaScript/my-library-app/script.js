@@ -36,7 +36,6 @@ const dataCollect = function(form){
     return data;
 };
 
-
 const addBookToLibrary = function(event){
     // prevents the submit button from firing on load
     event.preventDefault();
@@ -102,7 +101,7 @@ const render = function(){
     generateTable(table);
 }
 
-// dynamically creates table headings and table rows/cells
+// dynamically creates table headings and table rows/cells, filling it with the content
 const generateTable = function (table) {
     let thead = table.createTHead();
     let row = thead.insertRow();
@@ -120,8 +119,21 @@ const generateTable = function (table) {
         let keys = Object.keys(book);
         for (let key of keys) {
             let cell = row.insertCell();
-            let text = document.createTextNode(book[key]);
-            cell.appendChild(text);
+            if (key === 'read'){
+                var btn = document.createElement('input');
+                btn.type = 'button';
+                btn.class = 'btn';
+                btn.addEventListener('click', e => {
+                    if (confirmReadEdit()) {
+                        editRead(e, row.id);
+                    }
+                });
+                btn.value = book[key];
+                cell.appendChild(btn);
+            } else {
+                let text = document.createTextNode(book[key]);
+                cell.appendChild(text);
+            }
         }
         let cell = row.insertCell();
         var btn = document.createElement('input');
@@ -133,7 +145,6 @@ const generateTable = function (table) {
             }
         });
         btn.value = 'delete';
-        btn.innerHTML = 'delete book';
         cell.appendChild(btn);
     }
 };
