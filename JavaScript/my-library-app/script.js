@@ -1,5 +1,102 @@
-let myLibrary = [];
-let categories = ["No.", "Title", "Author", "Pages", "Status", "Delete?"];
+var firebaseConfig = {
+    apiKey: "AIzaSyCnRyT2aNnBK3_ADVhfUAzZE8igy8R0AAU",
+    authDomain: "my-library-app-7ab61.firebaseapp.com",
+    databaseURL: "https://my-library-app-7ab61.firebaseio.com",
+    storageBucket: "my-library-app-7ab61.appspot.com",
+}
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+
+let database = firebase.database();
+let booksRef = database.ref('books');
+
+booksRef.on('value', populate, ErrData);
+
+function populate(data){
+    let books = data.val();
+    let keys = Object.keys(books);
+    for (var key of keys){
+        let book = books[key];
+
+        let table = document.querySelector('table');
+        let row = table.insertRow();
+        
+        let titleCell = row.insertCell();
+        let titleText = document.createTextNode(book.title);
+        titleCell.append(titleText);
+        row.append(titleCell);
+
+        let authorCell = row.insertCell();
+        let authorText = document.createTextNode(book.author);
+        authorCell.append(authorText);
+        row.append(authorCell);
+
+        let pagesCell = row.insertCell();
+        let pagesText = document.createTextNode(book.pages);
+        pagesCell.append(pagesText);
+        row.append(pagesCell);
+
+        if (book.read === "Read"){
+            let btn = document.createElement('input');
+            let cell = row.insertCell();
+            btn.type = 'button';
+            btn.className = 'read-btn';
+            btn.addEventListener('click', e => {
+                toggleReadStatus(e, key, 'read');
+            });
+            btn.value = book.read;
+            cell.appendChild(btn);
+        } else if (book.read === "Unread"){
+            let btn = document.createElement('input');
+            let cell = row.insertCell();
+            btn.type = 'button';
+            btn.className = 'unread-btn';
+            btn.addEventListener('click', e => {
+                toggleReadStatus(e, key, 'unread');
+            });
+            btn.value = book.read;
+            cell.appendChild(btn);
+        }
+
+        let btn = document.createElement('input');
+        let cell = row.insertCell();
+        btn.type = 'button';
+        btn.className = 'delete-btn';
+        btn.addEventListener('click', e => {
+            if (confirmDelete()) {
+                deleteBookFromLibrary(e, book.id);
+            }
+        });
+        btn.value = 'Delete';
+        cell.appendChild(btn);
+    }
+}
+
+const toggleReadStatus = function (event, key, status) {
+    event.preventDefault();
+
+    if (status === 'read'){
+        database.ref("books/" + key).update({read: "Unread"});
+    } else {
+         database.ref("books/" + key).update({read: "Read"});
+    }
+    
+    // if (myLibrary[id - 1].read === 'Read') {
+    //     myLibrary[id - 1].read = 'Unread';
+    //     updateTable();
+    // } else {
+    //     myLibrary[id - 1].read = 'Read';
+    //     updateTable();
+    // }
+};
+
+
+function ErrData(err){
+    console.log('Error!');
+    console.log(err);
+}
+
+let categories = ["Title", "Author", "Pages", "Status", "Delete?"];
 let idNo = 1;
 
 const Book = function (title, author, pages, read) {
@@ -22,11 +119,19 @@ Book.prototype.info = function(){
    
 };
 
-// Dummy books for testing
-let mockingbird = new Book("To Kill a Mockingbird", "Harper Lee", 350, false);
-let blood = new Book("In Cold Blood", "Truman Capote", 400, true);
-let hunter = new Book("The Heart Is a Lonely Hunter", "Carson McCullers", 250, true);
-myLibrary.push(mockingbird, blood, hunter);
+function writeBookData(book) {
+    database.ref('books/').push(book);
+}
+
+function deleteBook(id){
+    let database = firebase.database();
+    let booksRef = database.ref('books');
+    let query = booksRef.orderByChild('id');
+    
+    query.on('child_added', function(snapshot){
+        snapshot.ref.remove();
+    });
+}
 
 const dataCollect = function(form){
     let data = [];
@@ -36,7 +141,7 @@ const dataCollect = function(form){
     return data;
 };
 
-const addBookToLibrary = function(event){
+const addBookToDatabase = function(event){
     // prevents the submit button from firing on load
     event.preventDefault();
 
@@ -44,21 +149,14 @@ const addBookToLibrary = function(event){
     let form = document.getElementById('new-book-form');
     let data = dataCollect(form);
 
-    // takes the collected data and adds a new book instance to the library
+    // takes the collected data and pushes it to the database
     data = data.splice(0, data.length-2);
     var newEntry = new Book (data[0], data[1], data[2], data[3]);
-    myLibrary.push(newEntry);   
+    writeBookData(newEntry);
     updateBookId();
     updateTable(); 
     clearForm();
     toggleForm();
-};
-
-const deleteBookFromLibrary = function(event, id){
-    event.preventDefault();
-    myLibrary.splice(id-1, 1);
-    updateBookId();
-    updateTable();
 };
 
 const updateBookId = function(){
@@ -81,7 +179,7 @@ const updateTable = function(){
 };
 
 let form = document.getElementById('new-book-form');
-form.addEventListener('submit', addBookToLibrary);
+form.addEventListener('submit', addBookToDatabase);
 let clearBtn = document.getElementById('clear-btn');
 clearBtn.addEventListener('click', clearForm);
 
@@ -98,17 +196,6 @@ const toggleForm = function(){
 let addBtn = document.getElementById('add-book-btn');
 addBtn.addEventListener('click', toggleForm);
 
-const toggleReadStatus = function(event, id){
-    event.preventDefault();
-    if (myLibrary[id-1].read === 'Read'){
-        myLibrary[id-1].read = 'Unread';
-        updateTable();
-    } else {
-        myLibrary[id-1].read = 'Read';
-        updateTable();
-    }
-}
-
 // dynamically creates table headings and table rows/cells, filling it with the content
 const generateTable = function (table) {
     let thead = table.createTHead();
@@ -121,38 +208,7 @@ const generateTable = function (table) {
         row.append(th);
     }
 
-    for (let book of myLibrary) {
-        let row = table.insertRow();
-        row.id = book.id;
-        let keys = Object.keys(book);
-        for (let key of keys) {
-            let cell = row.insertCell();      
-            if (key === 'read'){
-                let btn = document.createElement('input');
-                btn.type = 'button';
-                btn.className = 'read-btn';
-                btn.addEventListener('click', e => {
-                    toggleReadStatus(e, book.id);
-                });
-                btn.value = book[key];
-                cell.appendChild(btn);
-            } else {
-                let text = document.createTextNode(book[key]);
-                cell.appendChild(text);
-            }
-        }
-        let btn = document.createElement('input');
-        let cell = row.insertCell();
-        btn.type = 'button';
-        btn.className = 'delete-btn';
-        btn.addEventListener('click', e => {
-            if (confirmDelete()){
-                deleteBookFromLibrary(e, book.id);
-            }
-        });
-        btn.value = 'Delete';
-        cell.appendChild(btn);
-    }
+    populate();  
 };
 
 const confirmDelete = function(){
