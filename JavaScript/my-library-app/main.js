@@ -107,6 +107,7 @@ function ErrData(err) {
     console.log(err);
 }
 
+// toggles the read/unread button
 function toggleStatus (event, id) {
     event.preventDefault();
     database.ref('books/').child(id).once('value', function(snapshot){
@@ -118,10 +119,12 @@ function toggleStatus (event, id) {
     });
 }
 
+// pushes book objects to the database
 function writeBookData(book) {
     database.ref('books/').push(book);
 }
 
+// deletes books from the database as well as from the table
 function deleteBook(event, id){
     event.preventDefault();
   
@@ -131,6 +134,7 @@ function deleteBook(event, id){
     row.parentNode.removeChild(row);
 }
 
+// collects data from the form
 function dataCollect(form) {
     let data = [];
     let ele = form.elements;
@@ -144,6 +148,7 @@ function dataCollect(form) {
     return data.splice(0,data.length-2);
 }
 
+// collects data from the form and adds it to the database
 function addBookToDatabase(event) {
     // prevents the submit button from firing on load
     event.preventDefault();
@@ -174,6 +179,7 @@ form.addEventListener('submit', addBookToDatabase);
 let clearBtn = document.getElementById('clear-btn');
 clearBtn.addEventListener('click', clearForm);
 
+// shows or hides the form on the main website
 function toggleForm (){
     event.preventDefault();
     var form = document.getElementById('new-book-form');
