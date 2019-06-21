@@ -13,6 +13,10 @@ this project:
 - [x] Add a 'new book' button that brings up a form that allows the the user to input details for a new book, e.g. 'Title', 'Author', 'Pages', 'Read/Unread' etc.
 - [x] Add a button on each book's display to remove that book from the library
 - [x] Add a button to change a book's read status
-- [ ] Optional: Save the data using either localStorage or Firebase
+- [x] Optional: Save the data using either localStorage or Firebase
 
 # What I learned/practiced...
+* First experience with Firebase and databases in general -- writing to, reading from, and updating the db with JS
+* Reading in information from a form, creating an object instance from it, and then storing it in an array
+* Reading from an array and displaying the information from each object instance in a table as well as updating the array and table as needed
+
