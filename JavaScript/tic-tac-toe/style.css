@@ -1,4 +1,21 @@
-#container {
-    margin: auto 0;
-    width: 90%; 
+table {
+    display: inline-block;
+    font-size: 60px;
+    border-collapse: collapse;
 }
+table, td, tr {
+    border: 1px solid black;
+}
+
+td, tr {
+    padding: 70px;
+}
+
+h1 {
+    font-size: 40px;
+}
+
+#container {
+    text-align: center;
+}
+
