@@ -1,23 +1,51 @@
-table, th, td {
+body {
+    background-color: #f4442e;
+    padding:0;
+    margin: 0;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+table {
+    padding: 0;
+    margin: 0;
+    border-spacing: 0;
+    display: block;
+    table-layout: fixed;
     width: 100%;
-    border: 1px solid black;
+}
+
+table, td {
+    border: 2px solid #edf2f4;
+    border-collapse: collapse;
+    background-color: #edf2f4;
+    font-size: 16px;
+    word-break: break-all;
+    
+}
+
+td {
+    width: 40%;
+    text-align: left;
 }
 
 th {
     height: 50px;
-}
-
-form {
-    display: none;
+    border-bottom: 2px solid #2b2d42;
+    color: #2b2d42;
+    text-align: left;
+    font-size: 17px;    
 }
 
 h1 {
-    text-align: center;
-}
-
-.container {
-    margin: 0 auto;
-    width: 600px;
+    display: inline-block;
+    text-align: left;
+    margin: 0;
+    padding-top: 35px;
+    padding-bottom: 20px;
+    font-size: 60px;
+    color: #2b2d42;
+    font-weight: bold;
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 .read-btn {
@@ -25,13 +53,14 @@ h1 {
     color: white;
     text-decoration: none;
     display: inline-block;
-    font-size: 12px;
+    font-size: 15px;
     padding: 15px 32px;
-    background-color: #008CBA;
+    background-color: #337ca0;
     width: 100%;
-    margin: 4px 2px;
+    margin: 4px 5px;
     font-weight: bold;
     cursor: pointer;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
 .unread-btn {
@@ -39,13 +68,14 @@ h1 {
     color: white;
     text-decoration: none;
     display: inline-block;
-    font-size: 12px;
-    padding: 15px 32px;
+    font-size: 15px;
+    padding: 15px 30px;
     background-color: goldenrod;
     width: 100%;
-    margin: 4px 2px;
+    margin: 4px 5px;
     font-weight: bold;
     cursor: pointer;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
 .delete-btn {
@@ -53,11 +83,92 @@ h1 {
     color: white;
     text-decoration: none;
     display: inline-block;
-    font-size: 12px;
+    font-size: 15px;
     padding: 15px 32px;
-    background-color: deeppink;
+    background-color: #8d99ae;
     width: 100%;
-    margin: 4px 2px;
+    margin: 4px 3px;
     font-weight: bold;
     cursor: pointer;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.form-container {
+    width: 100%;
+    background-color: #2b2d42;
+}
+
+.form-container input[type=submit], 
+.form-container input[type=button]{
+    border: none;
+    text-decoration: none;
+    font-size: 15px;
+    padding: 10px 32px;
+    background-color: #8d99ae;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: bold;
+    color: #e6eed6;
+}
+
+.form-container input[type=submit]{
+    background-color: #bfd7ea;
+    color: #2b2d42;
+}
+
+.form-container input[type=text]{
+    width: 100%;
+    margin: 5px 0 22px 0;
+    font-size: 15px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    opacity: 0.5;
+}
+
+.form-container input[type=text]:focus{
+    background-color: #ddd;
+    outline: none;
+}
+
+#add-book-btn {
+    border: none;   
+    color: #2b2d42;
+    text-decoration: none;
+    font-size: 15px;
+    padding: 15px 32px;
+    background-color: #e6eed6;
+    margin-bottom: 5px;
+    margin-right: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    position: absolute;
+    right: 100px;
+    bottom: 50px;
+}
+
+#container {
+    display: inline-block;
+    position: fixed;
+    right: 0;
+    left: 0;
+    top: 0;
+    padding: 5px;
+    margin: 0 auto;
+    width: 850px;
+    height: 100%;
+    overflow: auto;
+    background-color:#edf2f4;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+#new-book-form {
+    position: fixed;
+    right: 10px;
+    bottom: 125px;
+    width: 300px;
+    padding: 25px;
+    display: none;
+    color: #2b2d42;
+    background-color: #e6eed6;
+    z-index: 9;
 }

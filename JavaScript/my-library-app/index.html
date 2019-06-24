@@ -10,33 +10,34 @@
     <title>My Library App</title>
 </head>
 <body>
-    <div class = "container">
+    <div id = "container">
         <h1>My Library</h1>
+       
+        <div class = "form-container">
+            <form id="new-book-form">
+                Book Title: <br />
+                <input type="text" name="title" id="title">
+                <br />
+                Author: <br />
+                <input type="text" name="author" id="author">
+                <br />
+                Number of Pages: <br />
+                <input type="text" name="pages" id="pages">
+                <br />
+                Status: <br />
+                <input type="radio" name="status" id="status-read" value="Read">Finished<br />
+                <input type="radio" name="status" id="status-unread" value="Unread">Unread/Unfinished<br />
+                <br />
+                <input type="submit" id="submit" value="Submit">
+                <input type="button" id="clear-btn" value="Clear">
+            </form>
+        </div>
+       
         <table>
         </table><br />
-
-        <button type="button" id='add-book-btn'>Add new book</button>
         <br /><br />
-
-        <form id="new-book-form">
-            Book Title: <br />
-            <input type="text" name="title" id="title">
-            <br />
-            Author: <br />
-            <input type="text" name="author" id="author">
-            <br />
-            Number of Pages: <br />
-            <input type="text" name="pages" id="pages">
-            <br />
-            Reading status: <br />
-            <input type="radio" name="status" id="status-read" value="Read">Finished<br />
-            <input type="radio" name="status" id="status-unread" value="Unread">Unread/Unfinished<br />
-            <br />
-            <input type="submit" id="submit" value="Submit">
-            <input type="button" id="clear-btn" value="Clear">
-        </form>
     </div>
-    
+    <button type="button" id='add-book-btn'>Add new book</button>
    
     <script src="main.js"></script>
     
