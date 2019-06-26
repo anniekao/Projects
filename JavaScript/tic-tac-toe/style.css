@@ -1,31 +1,48 @@
 table {
     display: inline-block;
-    font-size: 60px;
+    font-size: 150px;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
+    color: #343e3d;
     border-collapse: collapse;
     border-style: hidden;
+    border: none;
+    table-layout: fixed;
+    margin-top: 5px;
 }
 
 table td, table th {
-    border: 10px solid #fe654f;
+    border: 20px solid #fe654f;
+    border-collapse: collapse;
 }
 
-td, tr {
-    padding: 70px;
+td {
+    height: 200px;
+    width: 200px;
+}
+
+tbody:first-child {
+    border-style: hidden;
 }
 
 h1 {
-    font-size: 40px;
-    font-family: Arial, Helvetica, sans-serif;
-    color: #96acb7;
+    font-size: 45px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    color: #3c4645;
 }
 
 body {
     background-color: #a5ffd6;
 }
 
+#new-game-btn {
+    margin-top: 50px;
+}
+
 #container {
     text-align: center;
 }
 
+#score {
+    display: inline-block;
+}
