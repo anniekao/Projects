@@ -30,10 +30,9 @@ const render = (board) => {
             // Data position in the array
             cell.setAttribute('data-row', i);
             cell.setAttribute('data-cell', j);
-            cell.addEventListener('click', e => {
-                let rowId = cell.getAttribute('data-row');
-                let cellId = cell.getAttribute('data-cell');
-                let arrPos = [rowId, cellId];
+            cell.addEventListener('click', (e) => {
+                // position in the board array
+                let arrPos = [cell.getAttribute('data-row'), cell.getAttribute('data-cell')];
                 let boardPos = cell.id;
                 makeMark(e, arrPos, boardPos, board);
             });
@@ -43,6 +42,15 @@ const render = (board) => {
         }
     }
 };
+
+// reset the entire game
+const resetGame = () => {
+    e.preventDefault();
+
+    resetBoard(gameOn.board);
+    gameOn.player1.setScore();
+    gameOn.player2.setScore();
+}
 
 // resets the board array
 const resetBoard = (board) => {
@@ -55,7 +63,6 @@ const resetBoard = (board) => {
 };
 
 // find out if board is completely full / no moves / tie
-
 
 // clear board on page and in array
 const clearBoard = (e) => {
@@ -96,6 +103,8 @@ const displayWin = (mark) => {
 
          let displayWinner = document.getElementById('winner');
          displayWinner.innerText = gameOn.player1.name + " won!";
+
+         showWinner()
     } else {
          let displayScore = document.getElementById('player2_score');
          gameOn.player2.addPoint();
@@ -103,10 +112,19 @@ const displayWin = (mark) => {
 
          let displayWinner = document.getElementById('winner');
          displayWinner.innerText = gameOn.player2.name + " won!";
+
+         showWinner()
     }
-}
-// Check win in board array / display on page
-// Refactor?
+};
+
+// Show winner on board
+const showWinner = () => {
+    let display = document.getElementById('display_winner');
+    display.style.display = 'block';
+};
+
+
+// Check win in board array / display on page 
 const checkWin = (board, arrPos) => {
     let x = arrPos[0];
     let y = arrPos[1];
@@ -118,6 +136,14 @@ const checkWin = (board, arrPos) => {
         displayWin("O");
     } else if (board[0][y] === "O" && board[1][y] === "O" && board[2][y] === "O") {
        displayWin("O");
+    } else if (board[0][0] === "O" && board[1][1] === "O" && board[2][2] === "O") {
+        displayWin("O");
+    } else if (board[0][2] === "O" && board[1][1] === "O" && board[2][0] === "O") {
+        displayWin("O");
+    } else if (board[0][0] === "X" && board[1][1] === "X" && board[2][2] === "X") {
+        displayWin("O");
+    } else if (board[0][2] === "X" && board[1][1] === "X" && board[2][0] === "X") {
+        displayWin("X");
     }
 };
 
@@ -147,11 +173,12 @@ const takeTurn = () => {
 };
 
 let clearBoardBtn = document.getElementById('clear-board-btn');
-clearBoardBtn.addEventListener('click', e => {
-    clearBoard(e);
-});
+clearBoardBtn.addEventListener('click', clearBoard);
 
 let player1Name = document.getElementById('player1_name');
 player1Name.innerText = gameOn.player1.name + ": ";
 let player2Name = document.getElementById('player2_name');
 player2Name.innerText = gameOn.player2.name + ": ";
+
+let resetBtn = document.getElementById('reset-btn');
+resetBtn.addEventListener('click', resetGame);

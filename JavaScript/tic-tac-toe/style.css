@@ -70,3 +70,24 @@ body {
     font-weight: bold;
     color: #343e3d; 
 }
+
+#display_winner {
+    display: none;
+    position: absolute;
+    opacity: 0.1;
+    background-color: antiquewhite;
+    top: 118px;
+    left: 475px;
+    height: 650px;
+    width: 650px;
+}
+
+#winner {
+    opacity: 0.9;
+    position: absolute;
+    top: 325px;
+    left: 575px;
+    font-size: 80px;
+    color: #eee82c;
+    font-weight: bolder;
+}
