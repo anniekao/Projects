@@ -35,14 +35,38 @@ body {
     background-color: #a5ffd6;
 }
 
-#new-game-btn {
-    margin-top: 50px;
+#clear-board-btn {
+    position: absolute;
+    top: 175px;
+    left: 75px;
+    border: none;
+    padding: 15px 38px;
+    background-color: #a8dadc;
+    font-weight: bold;
+}
+
+#reset-btn {
+    position: absolute;
+    top: 175px;
+    left: 225px;
+    border: none;
+    padding: 15px 38px;
+    background-color: #e63946;
+    font-weight: bold;
 }
 
 #container {
     text-align: center;
 }
 
-#score {
-    display: inline-block;
+#scores {
+    position: absolute;
+    top: 250px;
+    left: 75px;
+    border: 10px solid #f3a712;
+    padding: 50px;
+    font-size: 15px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-weight: bold;
+    color: #343e3d; 
 }
