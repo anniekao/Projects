@@ -1,17 +1,15 @@
 // Player objects
-const Player = (name, mark) => {
-    this.score = 0;
+var Player = function (name, mark) {
     this.name = name;
     this.mark = mark;
+    this.setScore = () => this.score = 0;
     this.addPoint = () => this.score += 1;
     this.getScore = () => this.score;
-    return {name, mark, addPoint, getScore};
-
 };
 
 // Gameboard
 const Gameboard = () => {
-    let playingField = () => [
+    this.playingField = () => [
         ["","",""], 
         ["","",""], 
         ["","",""]
@@ -46,6 +44,32 @@ const render = (board) => {
     }
 };
 
+// resets the board array
+const resetBoard = (board) => {
+        for (var i = 0; i < board.length; i++) {
+            for (var j = 0; j < board.length; j++) {
+                board[i][j] = "";
+            }
+        }
+    return board;
+};
+
+
+// Start new round
+const newRound = (e) => {
+    e.preventDefault();
+
+    let table = document.querySelector('table');
+    let rows = table.rows;
+    for (let i = 0; i < rows.length; i++){
+        for (let j = 0; j < rows.length; j++){
+            rows[i].cells[j].innerText = "";
+        }
+    }
+
+    gameOn.board = resetBoard(gameOn.board);
+};
+
 // Functions to allow players to add marks to specific spots (if not already chosen)
 const makeMark = (e, arrPos, boardPos, board) => {
     e.preventDefault();
@@ -70,10 +94,6 @@ const checkWin = (board, arrPos) => {
         let displayScore = document.getElementById('player1_score');
         gameOn.player1.addPoint();
         displayScore.innerHTML = gameOn.player1.getScore();
-        // gameOn.player1.score += 1;
-        // displayScore.innerText = gameOn.player1.score;
-        console.log(gameOn.player1.score);
-        console.log(gameOn.player2.score);
 
         let displayWinner = document.getElementById('winner');
         displayWinner.innerHTML = gameOn.player1.name + " won!";
@@ -81,10 +101,6 @@ const checkWin = (board, arrPos) => {
         let displayScore = document.getElementById('player1_score');
         gameOn.player1.addPoint();
         displayScore.innerHTML = gameOn.player1.getScore();
-        // gameOn.player1.score += 1;
-        // displayScore.innerText = gameOn.player1.score;
-        console.log(gameOn.player1.score);
-        console.log(gameOn.player2.score);
 
         let displayWinner = document.getElementById('winner');
         displayWinner.innerHTML = gameOn.player1.name + " won!";
@@ -92,10 +108,6 @@ const checkWin = (board, arrPos) => {
         let displayScore = document.getElementById('player2_score');
         gameOn.player2.addPoint();
         displayScore.innerHTML = gameOn.player2.getScore();
-        // gameOn.player2.score += 1;
-        // displayScore.innerText = gameOn.player2.score;
-        console.log(gameOn.player1.score);
-        console.log(gameOn.player2.score);
 
         let displayWinner = document.getElementById('winner');
         displayWinner.innerHTML = gameOn.player2.name + " won!";
@@ -103,11 +115,7 @@ const checkWin = (board, arrPos) => {
         let displayScore = document.getElementById('player2_score');
         gameOn.player2.addPoint();
         displayScore.innerHTML = gameOn.player2.getScore();
-        // gameOn.player2.score += 1;
-        // displayScore.innerText = gameOn.player2.score;
-        console.log(gameOn.player1.score);
-        console.log(gameOn.player2.score);
-
+        
         let displayWinner = document.getElementById('winner');
         displayWinner.innerHTML = gameOn.player2.name + " won!";
     }
@@ -115,15 +123,17 @@ const checkWin = (board, arrPos) => {
 
 // Game control
 const Play = (p1, p2) => {
-    const player1 = Player(p1[0], p1[1]);
-    const player2 = Player(p2[0], p2[1]);
+    const player1 = new Player(p1[0], p1[1]);
+    const player2 = new Player(p2[0], p2[1]);
     const board = Gameboard().playingField();
-    return {player1, player2, board};
+    return {player1, player2, board, resetBoard};
 };
 
-const p1 = ["Annie", "X"];
-const p2 = ["Bob", "O"];
+const p1 = ["Annie", "X", 0];
+const p2 = ["Bob", "O", 0];
 const gameOn = Play(p1, p2);
+gameOn.player1.setScore();
+gameOn.player2.setScore();
 render(gameOn.board);
 
 //Take turn
@@ -138,7 +148,7 @@ const takeTurn = () => {
 
 let newGameBtn = document.getElementById('new-game-btn');
 newGameBtn.addEventListener('click', e => {
-    resetBoard(e);
+    newRound(e);
 });
 
 let player1Name = document.getElementById('player1_name');
