@@ -54,9 +54,11 @@ const resetBoard = (board) => {
     return board;
 };
 
+// find out if board is completely full / no moves / tie
 
-// Start new round
-const newRound = (e) => {
+
+// clear board on page and in array
+const clearBoard = (e) => {
     e.preventDefault();
 
     let table = document.querySelector('table');
@@ -86,38 +88,36 @@ const makeMark = (e, arrPos, boardPos, board) => {
     checkWin(board, arrPos);
 };
 
+const displayWin = (mark) => {
+    if (mark === "X"){
+         let displayScore = document.getElementById('player1_score');
+         gameOn.player1.addPoint();
+         displayScore.innerText = gameOn.player1.getScore();
+
+         let displayWinner = document.getElementById('winner');
+         displayWinner.innerText = gameOn.player1.name + " won!";
+    } else {
+         let displayScore = document.getElementById('player2_score');
+         gameOn.player2.addPoint();
+         displayScore.innerText = gameOn.player2.getScore();
+
+         let displayWinner = document.getElementById('winner');
+         displayWinner.innerText = gameOn.player2.name + " won!";
+    }
+}
 // Check win in board array / display on page
+// Refactor?
 const checkWin = (board, arrPos) => {
     let x = arrPos[0];
     let y = arrPos[1];
     if (board[x].every(x => x === "X")){
-        let displayScore = document.getElementById('player1_score');
-        gameOn.player1.addPoint();
-        displayScore.innerHTML = gameOn.player1.getScore();
-
-        let displayWinner = document.getElementById('winner');
-        displayWinner.innerHTML = gameOn.player1.name + " won!";
+       displayWin("X");
     } else if (board[0][y] === "X" && board[1][y] === "X" && board[2][y] === "X") {
-        let displayScore = document.getElementById('player1_score');
-        gameOn.player1.addPoint();
-        displayScore.innerHTML = gameOn.player1.getScore();
-
-        let displayWinner = document.getElementById('winner');
-        displayWinner.innerHTML = gameOn.player1.name + " won!";
+        displayWin("X");
     } else if (board[x].every(x => x === "O")){
-        let displayScore = document.getElementById('player2_score');
-        gameOn.player2.addPoint();
-        displayScore.innerHTML = gameOn.player2.getScore();
-
-        let displayWinner = document.getElementById('winner');
-        displayWinner.innerHTML = gameOn.player2.name + " won!";
+        displayWin("O");
     } else if (board[0][y] === "O" && board[1][y] === "O" && board[2][y] === "O") {
-        let displayScore = document.getElementById('player2_score');
-        gameOn.player2.addPoint();
-        displayScore.innerHTML = gameOn.player2.getScore();
-        
-        let displayWinner = document.getElementById('winner');
-        displayWinner.innerHTML = gameOn.player2.name + " won!";
+       displayWin("O");
     }
 };
 
@@ -146,12 +146,12 @@ const takeTurn = () => {
     }
 };
 
-let newGameBtn = document.getElementById('new-game-btn');
-newGameBtn.addEventListener('click', e => {
-    newRound(e);
+let clearBoardBtn = document.getElementById('clear-board-btn');
+clearBoardBtn.addEventListener('click', e => {
+    clearBoard(e);
 });
 
 let player1Name = document.getElementById('player1_name');
-player1Name.innerText = gameOn.player1.name;
+player1Name.innerText = gameOn.player1.name + ": ";
 let player2Name = document.getElementById('player2_name');
-player2Name.innerText = gameOn.player2.name;
+player2Name.innerText = gameOn.player2.name + ": ";
