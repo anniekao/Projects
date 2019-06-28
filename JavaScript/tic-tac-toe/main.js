@@ -43,14 +43,24 @@ const render = (board) => {
     }
 };
 
+
 // reset the entire game
 const resetGame = () => {
-    e.preventDefault();
 
-    resetBoard(gameOn.board);
+    gameOn.board = resetBoard(gameOn.board);
     gameOn.player1.setScore();
     gameOn.player2.setScore();
-}
+
+    let score1 = document.getElementById('player1_score');
+    score1.innerText = 0;
+    let score2 = document.getElementById('player2_score');
+    score2.innerText = 0;
+
+    clearBoard();
+};
+
+let resetBtn = document.getElementById('reset-btn');
+resetBtn.addEventListener('click', resetGame);
 
 // resets the board array
 const resetBoard = (board) => {
@@ -64,9 +74,9 @@ const resetBoard = (board) => {
 
 // find out if board is completely full / no moves / tie
 
+
 // clear board on page and in array
-const clearBoard = (e) => {
-    e.preventDefault();
+const clearBoard = () => {
 
     let table = document.querySelector('table');
     let rows = table.rows;
@@ -77,7 +87,18 @@ const clearBoard = (e) => {
     }
 
     gameOn.board = resetBoard(gameOn.board);
+
+     let display = document.getElementById('display_winner');
+     display.style.display = 'none';
+     let displayWinner = document.getElementById('winner');
+     displayWinner.innerText = "";
+
 };
+
+let clearBoardBtn = document.getElementById('clear-board-btn');
+clearBoardBtn.addEventListener('click', e => {
+    clearBoard(e);
+});
 
 // Functions to allow players to add marks to specific spots (if not already chosen)
 const makeMark = (e, arrPos, boardPos, board) => {
@@ -104,7 +125,8 @@ const displayWin = (mark) => {
          let displayWinner = document.getElementById('winner');
          displayWinner.innerText = gameOn.player1.name + " won!";
 
-         showWinner()
+         let display = document.getElementById('display_winner');
+         display.style.display = 'block';
     } else {
          let displayScore = document.getElementById('player2_score');
          gameOn.player2.addPoint();
@@ -113,16 +135,10 @@ const displayWin = (mark) => {
          let displayWinner = document.getElementById('winner');
          displayWinner.innerText = gameOn.player2.name + " won!";
 
-         showWinner()
+         let display = document.getElementById('display_winner');
+         display.style.display = 'block';
     }
 };
-
-// Show winner on board
-const showWinner = () => {
-    let display = document.getElementById('display_winner');
-    display.style.display = 'block';
-};
-
 
 // Check win in board array / display on page 
 const checkWin = (board, arrPos) => {
@@ -172,13 +188,8 @@ const takeTurn = () => {
     }
 };
 
-let clearBoardBtn = document.getElementById('clear-board-btn');
-clearBoardBtn.addEventListener('click', clearBoard);
-
 let player1Name = document.getElementById('player1_name');
 player1Name.innerText = gameOn.player1.name + ": ";
 let player2Name = document.getElementById('player2_name');
 player2Name.innerText = gameOn.player2.name + ": ";
 
-let resetBtn = document.getElementById('reset-btn');
-resetBtn.addEventListener('click', resetGame);
