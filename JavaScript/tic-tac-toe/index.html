@@ -10,15 +10,17 @@
 <body>
     <div id="scores">
         <h2>Player Scores</h2>
-        <p id = "player1_name">Player 1:</p>
-        <div id="player1_score">0</div>
-
-        <p id = "player2_name">Player 2:</p>
-        <div id="player2_score">0</div>
-        
+        <div id = "score1">
+            <p><input type="text" id="player1_name" placeholder="Player 1 Name" onkeydown="setPlayerName(event,this)" /><span
+            id="player1_score">0</span></p>
+        </div>
+        <div id = "score2">
+            <p><input type="text" id="player2_name" placeholder="Player 2 Name" onkeydown="setPlayerName(event,this)" /><span
+            id="player2_score">0</span></p>
+        </div>
     </div>
-    <input type="button" id="clear-board-btn" value="New Game">
-    <input type="button" id="reset-btn" value="Reset Game">
+    <input type="button" id="clear-board-btn" value="New Game" />
+    <input type="button" id="reset-btn" value="Reset Game" />
     <div id="container">
         <h1>Tic Tac Toe!</h1>
         <div id="winner"></div>

@@ -57,6 +57,7 @@ const resetGame = () => {
     score2.innerText = 0;
 
     clearBoard();
+    resetNames();
 };
 
 let resetBtn = document.getElementById('reset-btn');
@@ -188,8 +189,50 @@ const takeTurn = () => {
     }
 };
 
-let player1Name = document.getElementById('player1_name');
-player1Name.innerText = gameOn.player1.name + ": ";
-let player2Name = document.getElementById('player2_name');
-player2Name.innerText = gameOn.player2.name + ": ";
+function resetNames(){
+    let player1Name = document.getElementById('player1_name');
+    let player2Name = document.getElementById('player2_name');
+    let score1 = document.getElementById('score1');
+    let score2 = document.getElementById('score2');
 
+    player1Name.parentElement.removeChild(player1Name);
+    player2Name.parentElement.removeChild(player2Name);
+
+    let nameField1 = document.createElement('input');
+    let nameField2 = document.createElement('input');
+    nameField1.setAttribute('type', 'text');
+    nameField1.setAttribute('placeholder', 'Player 1 Name');
+    nameField2.setAttribute('type', 'text');
+    nameField2.setAttribute('placeholder', 'Player 2 Name'); 
+    
+    score1.insertBefore(nameField1, score1.firstChild);
+    score2.insertBefore(nameField2, score2.firstChild);
+}
+
+function setPlayerName(event, ele) {
+    let player1Name = document.getElementById('player1_name');
+    let player2Name = document.getElementById('player2_name');
+    let score1 = document.getElementById('score1');
+    let score2 = document.getElementById('score2');
+    if (event.keyCode === 13 && ele.id === 'player1_name'){
+        player1Name.innerText = ele.value;
+        gameOn.player1.name = ele.value;
+
+        player1Name.parentElement.removeChild(player1Name);
+        
+        let div = document.createElement('div');
+        div.id = 'player1_name';
+        div.innerText = gameOn.player1.name + ": ";
+        score1.insertBefore(div, score1.firstChild);
+    }  else if (event.keyCode === 13 && ele.id === 'player2_name'){
+        player2Name.innerText = ele.value;
+        gameOn.player2.name = ele.value;
+
+        player2Name.parentElement.removeChild(player2Name);
+
+        let div = document.createElement('div');
+        div.id = 'player2_name';
+        div.innerText = gameOn.player2.name + ": ";
+        score2.insertBefore(div, score2.firstChild);
+    }
+}
