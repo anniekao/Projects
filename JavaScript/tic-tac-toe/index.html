@@ -8,21 +8,9 @@
     <title>Tic Tac Toe!</title>
 </head>
 <body>
-    <div id="scores">
-        <h2>Player Scores</h2>
-        <div id = "score1">
-            <p><input type="text" id="player1_name" placeholder="Player 1 Name" onkeydown="setPlayerName(event,this)" /><span
-            id="player1_score">0</span></p>
-        </div>
-        <div id = "score2">
-            <p><input type="text" id="player2_name" placeholder="Player 2 Name" onkeydown="setPlayerName(event,this)" /><span
-            id="player2_score">0</span></p>
-        </div>
-    </div>
-    <input type="button" id="clear-board-btn" value="New Game" />
-    <input type="button" id="reset-btn" value="Reset Game" />
     <div id="container">
         <h1>Tic Tac Toe!</h1>
+        <hr />
         <div id="winner"></div>
         <div id="display_winner">
         </div>
@@ -30,6 +18,19 @@
             
         </table>
     </div>
+    <div id="scores">
+        <h2>Player Scores</h2>
+        <div id="score1">
+            <input type="text" id="player1_name" placeholder="Player 1 Name"
+                    onkeydown="setPlayerName(event,this)" /><span id="player1_score">0</span>
+        </div> 
+        <div id="score2">
+            <input type="text" id="player2_name" placeholder="Player 2 Name"
+                    onkeydown="setPlayerName(event,this)" /><span id="player2_score">0</span>
+        </div>
+    </div>
+    <input type="button" id="clear-board-btn" value="New Game" />
+    <input type="button" id="reset-btn" value="Reset Game" />
     <script src="main.js"></script>
 </body>
 </html>
