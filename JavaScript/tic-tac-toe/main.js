@@ -73,9 +73,6 @@ const resetBoard = (board) => {
     return board;
 };
 
-// find out if board is completely full / no moves / tie
-
-
 // clear board on page and in array
 const clearBoard = () => {
 
@@ -114,7 +111,11 @@ const makeMark = (e, arrPos, boardPos, board) => {
         lastTurn = nextTurn;
         takeTurn();
     }  
+
     checkWin(board, arrPos);
+    if(checkTie()) {
+        displayWin("T");
+    }
 };
 
 const displayWin = (mark) => {
@@ -128,7 +129,7 @@ const displayWin = (mark) => {
 
          let display = document.getElementById('display_winner');
          display.style.display = 'block';
-    } else {
+    } else if (mark === "O") {
          let displayScore = document.getElementById('player2_score');
          gameOn.player2.addPoint();
          displayScore.innerText = gameOn.player2.getScore();
@@ -138,6 +139,12 @@ const displayWin = (mark) => {
 
          let display = document.getElementById('display_winner');
          display.style.display = 'block';
+    } else {
+        let displayWinner = document.getElementById('winner');
+        displayWinner.innerText = "It's a tie!";
+
+        let display = document.getElementById('display_winner');
+        display.style.display = 'block';
     }
 };
 
@@ -172,12 +179,13 @@ const Play = (p1, p2) => {
     return {player1, player2, board, resetBoard};
 };
 
-const p1 = ["Annie", "X", 0];
-const p2 = ["Bob", "O", 0];
+const p1 = ["", "X", 0];
+const p2 = ["", "O", 0];
 const gameOn = Play(p1, p2);
 gameOn.player1.setScore();
 gameOn.player2.setScore();
 render(gameOn.board);
+
 
 //Take turn
 let nextTurn = gameOn.player1.mark;
@@ -236,3 +244,24 @@ function setPlayerName(event, ele) {
         score2.insertBefore(div, score2.firstChild);
     }
 }
+
+// find out if board is completely full / no moves / tie
+const checkTie = () => {
+    let board = gameOn.board;
+    for (let i = 0; i < board.length; i++){
+        for (let j = 0; j < board[i].length; j++){
+            if (board[i][j] === ""){
+                return false;
+            }
+        }
+
+    }
+    return true;
+    
+};
+
+
+
+
+
+
