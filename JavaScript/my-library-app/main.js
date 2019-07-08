@@ -178,14 +178,20 @@ function clearForm() {
 function clearTable() {
     let table = document.querySelector('table');
     table.innerHTML = "";
+    
     clearForm();
 }
 
 function openNav() {
     document.getElementById("sideNav").style.width = "400px";
+    let container = document.getElementsByClassName("container-fluid")[0];
+    container.className += " col-9";
 }
 
 function closeNav() {
+    let container = document.getElementsByClassName("container-fluid")[0];
+    container.className = "container-fluid";
+
     document.getElementById("sideNav").style.width = "0";
 }
 
