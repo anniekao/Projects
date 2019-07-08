@@ -19,4 +19,6 @@ this project:
 * First experience with Firebase and databases in general -- writing to, reading from, and updating the db with JS
 * Reading in information from a form, creating an object instance from it, and then storing it in an array
 * Reading from an array and displaying the information from each object instance in a table as well as updating the array and table as needed
+* Improving CSS -- first by trying to cobble together a layout using basic CSS and then bringing in Bootstrap to make the interface more streamlined
+
 
