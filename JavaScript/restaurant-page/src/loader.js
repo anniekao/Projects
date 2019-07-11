@@ -17,7 +17,7 @@ function loadHeader() {
   title.append(text);
   header.appendChild(title);
   
-  page.appendChild(header);
+  document.body.appendChild(header);
 }
 
 function createTabs() {
