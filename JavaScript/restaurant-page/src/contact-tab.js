@@ -15,6 +15,4 @@ function renderContactContent() {
   return div;
   }
 
-  export {
-    renderContactContent
-  };
+  export { renderContactContent };

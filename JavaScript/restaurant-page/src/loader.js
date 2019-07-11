@@ -63,4 +63,10 @@ function createTabs() {
   page.appendChild(tabsWrapper);
 }
 
-export { loadHeader, createTabs };
+function createTabsContentDiv() {
+  let divTabContent = document.createElement('div');
+  divTabContent.id = 'tab-content';
+  document.body.appendChild(divTabContent);
+}
+
+export { loadHeader, createTabs, createTabsContentDiv };
