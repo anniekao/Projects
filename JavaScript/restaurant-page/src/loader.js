@@ -20,19 +20,47 @@ function loadHeader() {
   page.appendChild(header);
 }
 
-function addCopyText() {
-  const section = document.createElement('section');
-  const article = document.createElement('article');
-  const copy = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.";
-  const text = document.createTextNode(copy);
-
-  article.append(text);
-  section.appendChild(article)
-  page.appendChild(section);
-}
-
 function createTabs() {
+  let tabsWrapper = document.createElement('div');
+  tabsWrapper.className = 'container-fluid';
+  tabsWrapper.id = 'tabs-wrapper';
 
+  let tabs = document.createElement('ul');
+  tabs.className = 'nav nav-pills nav-fill';
+
+  let homeTab = document.createElement('li');
+  homeTab.className = 'nav-item';
+  homeTab.id = 'home-tab';
+  let homeLink = document.createElement('a');
+  homeLink.className = 'nav-link active';
+  homeLink.href = '#';
+  homeLink.appendChild(document.createTextNode('Home'));
+  homeTab.appendChild(homeLink);
+
+  let menuTab = document.createElement('li');
+  menuTab.className = 'nav-item';
+  menuTab.id = 'menu-tab';
+  let menuLink = document.createElement('a');
+  menuLink.className = 'nav-link';
+  menuLink.href = '#';
+  menuLink.appendChild(document.createTextNode('Menu'));
+  menuTab.appendChild(menuLink);
+
+  let contactTab = document.createElement('li');
+  contactTab.className = 'nav-item';
+  contactTab.id = 'contact-tab';
+  let contactLink = document.createElement('a');
+  contactLink.className = 'nav-link';
+  contactLink.href = '#';
+  contactLink.appendChild(document.createTextNode('Contact'));
+  contactTab.appendChild(contactLink);
+  
+  tabs.appendChild(homeTab);
+  tabs.appendChild(menuTab);
+  tabs.appendChild(contactTab);
+
+  tabsWrapper.appendChild(tabs);
+  page.appendChild(tabsWrapper);
 }
 
-export { loadHeader, addCopyText };
+export { loadHeader, createTabs };

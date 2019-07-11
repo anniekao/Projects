@@ -18,3 +18,7 @@ header h1 {
 header img {
   z-index: 1;
 }
+
+section {
+  margin: 50px;
+}
