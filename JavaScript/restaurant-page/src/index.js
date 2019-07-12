@@ -8,16 +8,16 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 loadHeader(); 
 createTabs();
 createTabsContentDiv();
-let tabContent = document.getElementById('tab-content');
+const tabContent = document.getElementById('tab-content');
 tabContent.appendChild(renderHomeContent());
 
-let homeTab = document.getElementById('home-tab');
-let menuTab = document.getElementById('menu-tab');
-let contactTab = document.getElementById('contact-tab');
+const homeTab = document.getElementById('home-tab');
+const menuTab = document.getElementById('menu-tab');
+const contactTab = document.getElementById('contact-tab');
 
-// Removes 'active' from the previously select tab's class
+// Removes 'active' from the previously selected tab's class
 function deselectTab() {
-  let tabs = document.getElementsByClassName('nav')[0].childNodes;
+  const tabs = document.getElementsByClassName('nav')[0].childNodes;
   for (let tab of tabs) {
     if (tab.childNodes[0].className.includes('active')) {
       tab.childNodes[0].className = 'nav-link';
@@ -27,31 +27,54 @@ function deselectTab() {
 
 // Adds the 'active' class to the currently selected tab
 function selectTab(tabName) {
-  deselectTab();
-
-  let selectedTab = document.getElementById(tabName);
+  const selectedTab = document.getElementById(tabName);
   selectedTab.childNodes[0].className += ' active';
 }
 
-// Event listeners for each tab
+// Clears the contents of the tab-content div
+function clearContents() {
+  const contentTab = document.getElementById('tab-content');
+  contentTab.removeChild(contentTab.childNodes[0]);
+}
+
+// Renders the current select tab's contents
+function renderTabContents(tabName) {
+  const contentTab = document.getElementById('tab-content');
+  switch(tabName) {
+    case 'home-tab': {
+      contentTab.appendChild(renderHomeContent());
+      break;
+    }
+    case 'menu-tab': {
+      contentTab.appendChild(renderMenuContent());
+      break;
+    }
+    case 'contact-tab': {
+      contentTab.appendChild(renderContactContent());
+      break;
+    }
+  }
+}
+
+// Event listeners for each tab -- clears tab content, highlights correct tab, display correct tab content
 homeTab.addEventListener('click', function() {
-  let content = document.getElementById('tab-content');
-  content.removeChild(content.childNodes[0]);
-  content.appendChild(renderHomeContent());
+  clearContents();
+  renderTabContents('home-tab');
+  deselectTab();
   selectTab('home-tab');
 });
 
 menuTab.addEventListener('click', function() {
-  let content = document.getElementById('tab-content');
-  content.removeChild(content.childNodes[0]);
-  content.appendChild(renderMenuContent());
+  clearContents();
+  renderTabContents('menu-tab');
+  deselectTab();
   selectTab('menu-tab');
 });
 
 contactTab.addEventListener('click', function() {
-  let content = document.getElementById('tab-content');
-  content.removeChild(content.childNodes[0]);
-  content.appendChild(renderContactContent());
+  clearContents();
+  renderTabContents('contact-tab');
+  deselectTab();
   selectTab('contact-tab');
 });
 
