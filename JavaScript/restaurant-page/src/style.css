@@ -23,6 +23,10 @@ section {
   margin: 50px;
 }
 
+svg {
+  margin-left: 10px;
+}
+
 .rotate {
   -moz-transition: all .5s linear;
   -webkit-transition: all .5s linear;

@@ -5,16 +5,10 @@ function renderMenuContent() {
   const article = document.createElement('article');
   const section = document.createElement('section');
   const header = document.createElement('h1');
+  header.style.textDecoration = 'underline';
   const headerText = document.createTextNode('Our Menu');
   header.append(headerText);
   section.appendChild(header);
-
-  const dessertHeader = document.createElement('h2');
-  const dessertText = document.createTextNode('Dessert');
-
-  dessertHeader.append(dessertText);
-
-  article.appendChild(dessertHeader);
 
   section.appendChild(renderAppetizers());
   section.appendChild(renderSalads());
