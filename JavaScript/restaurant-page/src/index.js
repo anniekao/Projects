@@ -3,6 +3,9 @@ import { renderHomeContent } from './home-tab.js';
 import { renderMenuContent } from './menu-tab.js';
 import { renderContactContent } from './contact-tab.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import '@fortawesome/fontawesome-free/js/fontawesome';
+import '@fortawesome/fontawesome-free/js/solid';
+
 
 // Render initial webpage state
 loadHeader(); 
@@ -15,6 +18,14 @@ const homeTab = document.getElementById('home-tab');
 const menuTab = document.getElementById('menu-tab');
 const contactTab = document.getElementById('contact-tab');
 
+// Renders the correct tab to the page
+function renderTab(tab) {
+  clearContents();
+  renderTabContents(tab);
+  deselectTab();
+  selectTab(tab);
+}
+
 // Removes 'active' from the previously selected tab's class
 function deselectTab() {
   const tabs = document.getElementsByClassName('nav')[0].childNodes;
@@ -26,8 +37,8 @@ function deselectTab() {
 }
 
 // Adds the 'active' class to the currently selected tab
-function selectTab(tabName) {
-  const selectedTab = document.getElementById(tabName);
+function selectTab(tab) {
+  const selectedTab = document.getElementById(tab);
   selectedTab.childNodes[0].className += ' active';
 }
 
@@ -38,9 +49,9 @@ function clearContents() {
 }
 
 // Renders the current select tab's contents
-function renderTabContents(tabName) {
+function renderTabContents(tab) {
   const contentTab = document.getElementById('tab-content');
-  switch(tabName) {
+  switch(tab) {
     case 'home-tab': {
       contentTab.appendChild(renderHomeContent());
       break;
@@ -58,24 +69,15 @@ function renderTabContents(tabName) {
 
 // Event listeners for each tab -- clears tab content, highlights correct tab, display correct tab content
 homeTab.addEventListener('click', function() {
-  clearContents();
-  renderTabContents('home-tab');
-  deselectTab();
-  selectTab('home-tab');
+  renderTab('home-tab'); 
 });
 
 menuTab.addEventListener('click', function() {
-  clearContents();
-  renderTabContents('menu-tab');
-  deselectTab();
-  selectTab('menu-tab');
+  renderTab('menu-tab');
 });
 
 contactTab.addEventListener('click', function() {
-  clearContents();
-  renderTabContents('contact-tab');
-  deselectTab();
-  selectTab('contact-tab');
+  renderTab('contact-tab');
 });
 
 
