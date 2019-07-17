@@ -6,18 +6,20 @@ const page = document.getElementById('content');
 function loadHeader() {
   const header = document.createElement('header');
 
-  const title = document.createElement('h1');
+  const title = document.createElement('h2');
   const text = document.createTextNode('Welcome to Pasta Palace!');
 
   const headerLogo = new Image();
   headerLogo.src = Logo;
-  headerLogo.width = '300';
+  headerLogo.width = '100';
   
   header.appendChild(headerLogo);
   title.append(text);
   header.appendChild(title);
-  
+  header.appendChild(createTabs());
+
   document.body.appendChild(header);
+  document.body.appendChild(createTabsContentDiv());
 }
 
 function createTabs() {
@@ -26,7 +28,8 @@ function createTabs() {
   tabsWrapper.id = 'tabs-wrapper';
 
   let tabs = document.createElement('ul');
-  tabs.className = 'nav nav-pills nav-fill';
+  tabs.className = 'nav nav-pills';
+  tabs.style.float = 'right';
 
   let homeTab = document.createElement('li');
   homeTab.className = 'nav-item';
@@ -60,13 +63,15 @@ function createTabs() {
   tabs.appendChild(contactTab);
 
   tabsWrapper.appendChild(tabs);
-  page.appendChild(tabsWrapper);
+  return tabsWrapper;
 }
 
 function createTabsContentDiv() {
   let divTabContent = document.createElement('div');
   divTabContent.id = 'tab-content';
   document.body.appendChild(divTabContent);
+
+  return divTabContent;
 }
 
-export { loadHeader, createTabs, createTabsContentDiv };
+export { loadHeader };

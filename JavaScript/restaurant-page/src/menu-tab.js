@@ -2,7 +2,6 @@ function renderMenuContent() {
   const div = document.createElement('div');
   div.id = 'menu-content';
 
-  const article = document.createElement('article');
   const section = document.createElement('section');
   const header = document.createElement('h1');
   header.style.textDecoration = 'underline';
@@ -30,16 +29,27 @@ function toggleArrow(event) {
 }
 
 function toggleSubmenu(event) {
-  const div = event.target.parentNode;
-  for (let i = 0; i < div.childNodes.length; i++) {
-    if (div.childNodes[i].className === 'menu-items') {
-      if (div.childNodes[i].style.display === 'block') {
-        div.childNodes[i].style.display = 'none';
-      } else {
-        div.childNodes[i].style.display = 'block';
-      }
-    }
+  const subMenu = event.target.nextSibling;
+  if (subMenu.style.display === 'none') {
+    subMenu.style.display = 'block';
+  } else {
+    subMenu.style.display = 'none';
   }
+  // for (let i = 0; i < subMenu.length; i++) {
+  //   let classList = subMenu[i].classList;
+  //   switch(true) {
+  //     case classList.contains('menu-items'):
+  //     // case classList.contains('desserts-content'):
+  //     // case classList.contains('drinks-content'):
+  //       if (subMenu[i].style.display === 'block') {
+  //         subMenu[i].style.display = 'none';
+  //         break;
+  //       } else {
+  //         subMenu[i].style.display = 'block';
+  //         break;
+  //       } 
+  //   }
+  // }
 }
 
 function renderAppetizers() {
@@ -183,10 +193,9 @@ function renderDessertsAndDrinks() {
   dndHeader.append(headerArrow);
   article.appendChild(dndHeader);
 
-  dndHeader.addEventListener('click', function (event) {
-    toggleSubmenu(event);
-    toggleArrow(event);
-  });
+  const dndDiv = document.createElement('div');
+  dndDiv.className = 'menu-items';
+  dndDiv.style.display = 'none';
 
   const desserts = [
     'Mint Parfait… 7',
@@ -203,20 +212,25 @@ function renderDessertsAndDrinks() {
     'House Cheese Cake… 7'
   ];
 
-  const dessertDiv = document.createElement('div');
-  dessertDiv.className = 'menu-items';
-  dessertDiv.style.display = 'none';
-  
   const dessertHeader = document.createElement('h3');
   const dessertHeaderText = document.createTextNode('Desserts');
+  const dessertHeaderArrow = document.createElement('span');
+  dessertHeaderArrow.className = 'fa fa-chevron-right rotate';
   dessertHeader.append(dessertHeaderText);
-  dessertDiv.appendChild(dessertHeader);
+  dessertHeader.append(dessertHeaderArrow);
+  dndDiv.appendChild(dessertHeader);
 
+  const dessertDiv = document.createElement('div');
+  dessertDiv.className = 'desserts-content';
+  dessertDiv.style.display = 'none';
+  
   for (let item of desserts) {
     const text = document.createTextNode(item);
     dessertDiv.appendChild(text);
     dessertDiv.appendChild(document.createElement("br"));
   }
+  
+  dndDiv.appendChild(dessertDiv);
 
   const drinks = [
   'Espresso… 3',
@@ -226,23 +240,42 @@ function renderDessertsAndDrinks() {
   'Perrier… 4'
   ];
 
-  const drinksDiv = document.createElement('div');
-  drinksDiv.className = 'menu-items';
-  drinksDiv.style.display = 'none';
-  
   const drinksHeader = document.createElement('h3');
   const drinksHeaderText = document.createTextNode('Drinks');
+  const drinksHeaderArrow = document.createElement('span');
+  drinksHeaderArrow.className = 'fa fa-chevron-right rotate';
   drinksHeader.append(drinksHeaderText);
-  drinksDiv.appendChild(drinksHeader);
+  drinksHeader.append(drinksHeaderArrow);
+  dndDiv.appendChild(drinksHeader);
 
+  const drinksDiv = document.createElement('div');
+  drinksDiv.className = 'drinks-content';
+  drinksDiv.style.display = 'none';
+  
   for (let item of drinks) {
     const text = document.createTextNode(item);
     drinksDiv.appendChild(text);
     drinksDiv.appendChild(document.createElement("br"));
   }
 
-  article.appendChild(dessertDiv);
-  article.appendChild(drinksDiv);
+  dndDiv.appendChild(drinksDiv);
+
+  dndHeader.addEventListener('click', function (event) {
+    toggleSubmenu(event);
+    toggleArrow(event);
+  });
+
+  dessertHeader.addEventListener('click', function (event) {
+    toggleSubmenu(event);
+    toggleArrow(event);
+  });
+
+  drinksHeader.addEventListener('click', function (event) {
+    toggleSubmenu(event);
+    toggleArrow(event);
+  });
+  
+  article.appendChild(dndDiv);
   return article;
 }
 

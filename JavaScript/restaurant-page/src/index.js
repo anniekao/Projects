@@ -1,4 +1,4 @@
-import { loadHeader, createTabs, createTabsContentDiv } from './loader.js';
+import { loadHeader } from './loader.js';
 import { renderHomeContent } from './home-tab.js';
 import { renderMenuContent } from './menu-tab.js';
 import { renderContactContent } from './contact-tab.js';
@@ -6,11 +6,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '@fortawesome/fontawesome-free/js/fontawesome';
 import '@fortawesome/fontawesome-free/js/solid';
 
-
 // Render initial webpage state
 loadHeader(); 
-createTabs();
-createTabsContentDiv();
 const tabContent = document.getElementById('tab-content');
 tabContent.appendChild(renderHomeContent());
 
