@@ -35,21 +35,6 @@ function toggleSubmenu(event) {
   } else {
     subMenu.style.display = 'none';
   }
-  // for (let i = 0; i < subMenu.length; i++) {
-  //   let classList = subMenu[i].classList;
-  //   switch(true) {
-  //     case classList.contains('menu-items'):
-  //     // case classList.contains('desserts-content'):
-  //     // case classList.contains('drinks-content'):
-  //       if (subMenu[i].style.display === 'block') {
-  //         subMenu[i].style.display = 'none';
-  //         break;
-  //       } else {
-  //         subMenu[i].style.display = 'block';
-  //         break;
-  //       } 
-  //   }
-  // }
 }
 
 function renderAppetizers() {
